@@ -46,10 +46,10 @@ SC.ScrollerView = SC.View.extend(
 
   /** @private
     @type Array
-    @default ['thumbPosition', 'thumbLength', 'controlsHidden']
+    @default ['thumbPosition', 'thumbLength']
     @see SC.View#displayProperties
   */
-  displayProperties: ['thumbPosition', 'thumbLength', 'controlsHidden'],
+  displayProperties: ['thumbPosition', 'thumbLength'],
 
   /** @private
     The WAI-ARIA role for scroller view.
@@ -272,10 +272,6 @@ SC.ScrollerView = SC.View.extend(
       break;
     }
 
-    // The appearance of the scroller changes if disabled
-    // Whether to hide the thumb and buttons
-    classNames['controls-hidden'] = this.get('controlsHidden');
-
     // Change the class names of the DOM element all at once to improve
     // performance
     context.setClass(classNames);
@@ -302,9 +298,6 @@ SC.ScrollerView = SC.View.extend(
     } else {
       // The HTML has already been generated, so all we have to do is
       // reposition and resize the thumb
-
-      // If we aren't displaying controls don't bother
-      if (this.get('controlsHidden')) return;
 
       thumbElement = this.$('.thumb');
 
@@ -548,16 +541,6 @@ SC.ScrollerView = SC.View.extend(
     return Math.floor(isNaN(position) ? 0 : position);
   }.property('displayValue', 'maximum', 'trackLength', 'thumbLength').cacheable(),
 
-  /** @private
-    YES if the maximum value exceeds the frame size of the scroller.  This
-    will hide the thumb and buttons.
-
-    @type Boolean
-    @isReadOnly
-  */
-  controlsHidden: function () {
-    return this.get('proportion') >= 1;
-  }.property('proportion').cacheable(),
 
   // ..........................................................
   // FADE SUPPORT
@@ -1139,9 +1122,6 @@ SC.OverlayScrollerView = SC.ScrollerView.extend(
       break;
     }
 
-    // Whether to hide the thumb and buttons
-    if (this.get('controlsHidden')) classNames.push('controls-hidden');
-
     // Change the class names of the DOM element all at once to improve
     // performance
     context.addClass(classNames);
@@ -1160,9 +1140,6 @@ SC.OverlayScrollerView = SC.ScrollerView.extend(
     // The HTML has already been generated, so all we have to do is
     // reposition and resize the thumb
     } else {
-
-      // If we aren't displaying controls don't bother
-      if (this.get('controlsHidden')) return;
 
       thumbElement = this.$('.thumb');
 
