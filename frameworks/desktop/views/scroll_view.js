@@ -1511,8 +1511,6 @@ SC.ScrollView = SC.View.extend({
         containerLayoutMap.bottom = horizontalScrollerHeight;
       }
 
-      // Set the visibility of the scroller immediately.
-      horizontalScrollerView.set('isVisible', canScrollHorizontal);
       this._sc_fadeInHorizontalScroller();
     }
 
@@ -1544,8 +1542,6 @@ SC.ScrollView = SC.View.extend({
         containerLayoutMap.right = verticalScrollerWidth;
       }
 
-      // Set the visibility of the scroller immediately.
-      verticalScrollerView.set('isVisible', canScrollVertical);
       this._sc_fadeInVerticalScroller();
     }
 
@@ -1702,7 +1698,6 @@ SC.ScrollView = SC.View.extend({
 
       // Replace the class property with an instance.
       scrollerView = this.horizontalScrollerView = this.createChildView(scrollerView, {
-        isVisible: !this.get('autohidesHorizontalScroller'),
         layoutDirection: SC.LAYOUT_HORIZONTAL,
         value: this.get('horizontalScrollOffset'),
         valueBinding: '.parentView.horizontalScrollOffset', // Bind the value of the scroller to our horizontal offset.
@@ -1729,7 +1724,6 @@ SC.ScrollView = SC.View.extend({
 
       // Replace the class property with an instance.
       scrollerView = this.verticalScrollerView = this.createChildView(scrollerView, {
-        isVisible: !this.get('autohidesVerticalScroller'),
         layoutDirection: SC.LAYOUT_VERTICAL,
         value: this.get('verticalScrollOffset'),
         valueBinding: '.parentView.verticalScrollOffset', // Bind the value of the scroller to our vertical offset.
